@@ -1,0 +1,10 @@
+#dependencies
+/node_modules
+/.pnp
+.pnp.js
+/build
+
+# misc
+/public
+/src/views/light
+.env
