@@ -13,9 +13,10 @@ async function validatePassword(plainPassword, hashedPassword) {
 
 exports.signup = async (req, res, next) => {
   try {
-    const { email, password, role } = req.body;
+    const { firstName, lastName, email, password, role } = req.body;
     const hashedPassword = await hashPassword(password);
     const newUser = new User({
+      name: firstName + " " + lastName,
       email,
       password: hashedPassword,
       role: role || "user"
@@ -29,10 +30,58 @@ exports.signup = async (req, res, next) => {
     );
     newUser.accessToken = accessToken;
     await newUser.save();
-    res.json({
-      data: newUser,
-      accessToken
+    req.session.token = accessToken;
+    req.session.user = newUser;
+    res.status(200);
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.addSupervisor = async (req, res, next) => {
+  try {
+    const {
+      firstName,
+      lastName,
+      district,
+      email,
+      password
+    } = req.body;
+    const hashedPassword = await hashPassword(password);
+    const newUser = new User({
+      name: firstName + " " + lastName,
+      email,
+      district,
+      password: hashedPassword,
+      role: "district-supervisor"
     });
+    const accessToken = jwt.sign(
+      { userId: newUser._id },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "1d"
+      }
+    );
+    newUser.accessToken = accessToken;
+    await newUser.save();
+    req.session.token = accessToken;
+    req.session.user = newUser;
+    res.status(200);
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getSupervisors = async (req, res, next) => {
+  try {
+    const role = { role: "district-supervisor" };
+    const users = await User.find(role);
+    if (!users) return next(new Error("No supervisor found"));
+    res.locals.supervisors = users;
+    res.status(200);
+    next();
   } catch (error) {
     next(error);
   }

@@ -7,4 +7,5 @@
 # misc
 /public
 /src/views/light
+/src/views/dark
 .env

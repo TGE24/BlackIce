@@ -1,39 +1,36 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema(
+const ReportSchema = new Schema(
   {
-    name: {
-      type: String,
-      required: true,
-      trim: true
-    },
-    email: {
-      type: String,
-      required: true,
-      trim: true
-    },
     district: {
       type: String,
+      required: true,
       trim: true
     },
-    password: {
+    accidentCause: {
       type: String,
       required: true,
-      required: true
+      trim: true
     },
-    role: {
+    thumbnail: {
       type: String,
-      default: "user",
-      enum: ["user", "district-supervisor", "admin"]
+      trim: true
     },
-    accessToken: {
-      type: String
+    content: {
+      type: String,
+      required: true,
+      trim: true
+    },
+    userId: {
+      type: String,
+      required: true,
+      trim: true
     }
   },
   { timestamps: true }
 );
 
-const User = mongoose.model("user", UserSchema);
+const Report = mongoose.model("report", ReportSchema);
 
-module.exports = User;
+module.exports = Report;
