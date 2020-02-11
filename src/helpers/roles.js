@@ -8,7 +8,9 @@ exports.roles = (function() {
 
   ac.grant("district-supervisor")
     .extend("user")
-    .readAny("profile");
+    .readAny("profile")
+    .updateAny("profile")
+    .deleteAny("profile");
 
   ac.grant("admin")
     .extend("user")

@@ -4,7 +4,7 @@
       <a href="index.html">
         <img
           alt="image"
-          src="assets/img/logo.png"
+          src="/assets/img/logo.png"
           class="header-logo"
         />
         <span class="logo-name">Aegis</span>
@@ -12,7 +12,7 @@
     </div>
     <div class="sidebar-user">
       <div class="sidebar-user-picture">
-        <img alt="image" src="assets/img/userbig.png" />
+        <img alt="image" src="/assets/img/userbig.png" />
       </div>
       <div class="sidebar-user-details">
         <div class="user-name">Sarah Smith</div>
@@ -22,23 +22,18 @@
     <ul class="sidebar-menu">
       <li class="menu-header">Main</li>
       <li class="dropdown">
-        <a href="/admin" class="nav-link"
-          ><i data-feather="monitor"></i><span>Dashboard</span></a
-        >
-      </li>
-      <li class="dropdown">
         <a href="#" class="nav-link has-dropdown"
           ><i data-feather="briefcase"></i
           ><span>District Supervisors</span></a
         >
         <ul class="dropdown-menu">
           <li>
-            <a class="nav-link" href="/add-supervisor"
+            <a class="nav-link" href="/admin/add-supervisor"
               >Create Supervisor</a
             >
           </li>
           <li>
-            <a class="nav-link" href="/supervisors"
+            <a class="nav-link" href="/admin/supervisors"
               >All Supervisors</a
             >
           </li>
@@ -50,7 +45,9 @@
         >
         <ul class="dropdown-menu">
           <li>
-            <a class="nav-link" href="chat.html">District Reports</a>
+            <a class="nav-link" href="/admin/reports"
+              >District Reports</a
+            >
           </li>
           <li>
             <a class="nav-link" href="portfolio.html"

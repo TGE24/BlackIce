@@ -1,4 +1,5 @@
 import User from "../models/userModel";
+import Report from "../models/reports";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { roles } from "../helpers/roles";
@@ -18,20 +19,11 @@ exports.signup = async (req, res, next) => {
     const newUser = new User({
       name: firstName + " " + lastName,
       email,
+      district: res.locals.loggedInUser.district,
       password: hashedPassword,
       role: role || "user"
     });
-    const accessToken = jwt.sign(
-      { userId: newUser._id },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "1d"
-      }
-    );
-    newUser.accessToken = accessToken;
     await newUser.save();
-    req.session.token = accessToken;
-    req.session.user = newUser;
     res.status(200);
     next();
   } catch (error) {
@@ -56,17 +48,7 @@ exports.addSupervisor = async (req, res, next) => {
       password: hashedPassword,
       role: "district-supervisor"
     });
-    const accessToken = jwt.sign(
-      { userId: newUser._id },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "1d"
-      }
-    );
-    newUser.accessToken = accessToken;
     await newUser.save();
-    req.session.token = accessToken;
-    req.session.user = newUser;
     res.status(200);
     next();
   } catch (error) {
@@ -122,42 +104,65 @@ exports.getUsers = async (req, res, next) => {
   });
 };
 
-exports.getUser = async (req, res, next) => {
+exports.getUserReports = async (req, res, next) => {
   try {
-    const userId = req.params.userId;
-    const user = await User.findById(userId);
-    if (!user) return next(new Error("User does not exist"));
-    res.status(200).json({
-      data: user
-    });
+    const userId = { userId: res.locals.loggedInUser.id };
+    const reports = await Report.find(userId);
+    if (!reports) return next(new Error("No report submitted"));
+    res.locals.userReports = reports;
+    res.status(200);
+    next();
   } catch (error) {
     next(error);
   }
 };
 
-exports.updateUser = async (req, res, next) => {
+exports.getReports = async (req, res, next) => {
   try {
-    const update = req.body;
-    const userId = req.params.userId;
-    await User.findByIdAndUpdate(userId, update);
-    const user = await User.findById(userId);
-    res.status(200).json({
-      data: user,
-      message: "User has been updated"
-    });
+    const reports = await Report.find({});
+    if (!reports) return next(new Error("No report submitted"));
+    res.locals.reports = reports;
+    res.status(200);
+    next();
   } catch (error) {
     next(error);
   }
 };
 
-exports.deleteUser = async (req, res, next) => {
+exports.getDistrictReports = async (req, res, next) => {
   try {
-    const userId = req.params.userId;
-    await User.findByIdAndDelete(userId);
-    res.status(200).json({
-      data: null,
-      message: "User has been deleted"
-    });
+    const userId = { district: res.locals.loggedInUser.district };
+    const reports = await Report.find(userId);
+    if (!reports) return next(new Error("No report submitted"));
+    res.locals.districtReports = reports;
+    res.status(200);
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getDistrictUsers = async (req, res, next) => {
+  try {
+    const userId = {
+      district: res.locals.loggedInUser.district,
+      role: "user"
+    };
+    const users = await User.find(userId);
+    if (!users) return next(new Error("No report submitted"));
+    res.locals.districtUsers = users;
+    res.status(200);
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.logout = async (req, res, next) => {
+  try {
+    delete res.locals.loggedInUser;
+    res.status(200);
+    next();
   } catch (error) {
     next(error);
   }
