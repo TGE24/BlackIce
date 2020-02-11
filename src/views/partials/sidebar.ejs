@@ -1,13 +1,13 @@
 <div class="main-sidebar sidebar-style-2">
   <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
-      <a href="index.html">
+      <a href="/admin/add-supervisor">
         <img
           alt="image"
           src="/assets/img/logo.png"
           class="header-logo"
         />
-        <span class="logo-name">Aegis</span>
+        <span class="logo-name">BlackIce</span>
       </a>
     </div>
     <div class="sidebar-user">
@@ -15,8 +15,10 @@
         <img alt="image" src="/assets/img/userbig.png" />
       </div>
       <div class="sidebar-user-details">
-        <div class="user-name">Sarah Smith</div>
-        <div class="user-role">Administrator</div>
+        <div class="user-name"><%= user.name %></div>
+        <div class="user-role" style="text-transform: capitalize;">
+          <%= user.role %>
+        </div>
       </div>
     </div>
     <ul class="sidebar-menu">
@@ -47,11 +49,6 @@
           <li>
             <a class="nav-link" href="/admin/reports"
               >District Reports</a
-            >
-          </li>
-          <li>
-            <a class="nav-link" href="portfolio.html"
-              >Reports Stats</a
             >
           </li>
         </ul>
