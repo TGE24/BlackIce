@@ -1,6 +1,7 @@
-import 'dotenv/config'
+import "dotenv/config";
 
 module.exports = {
-  database: "mongodb://localhost/"+ process.env.DB_NAME ,
+  database:
+    "mongodb://annie1:anniepass1@ds217809.mlab.com:17809/blackice",
   secret: process.env.SECRET_KEY
 };
