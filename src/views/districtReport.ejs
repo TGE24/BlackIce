@@ -22,20 +22,34 @@
                         <thead>
                             <tr>
                               <th>SN</th>
-                              <th>Accident Cause</th>
-                              <th>Details</th>
-                              <th>Image</th>
+                              <th>Person Name</th>
+                              <th>Person Gender</th>
+                              <th>Details of Incident</th>
+                              <th>Injury Type</th>
+                              <th>Required Hospital</th>
                               <th>Date</th>
+                              <th>Actions</th>
                             </tr>
                           </thead>
                           <tbody>
                             <% for(let i=0; i<reports.length; i++) {%>
                             <tr>
                               <td><%= i + 1 %></td>
-                              <td><%= reports[i].accidentCause%></td>
-                              <td><%= reports[i].content.slice(3, -4) %></td>
-                              <td><img alt="image" src="<%= reports[i].thumbnail%>" width="35"></td>
+                              <td><%= reports[i].injName%></td>
+                              <td><%= reports[i].injGender%></td>
+                              <td><%= reports[i].injDetails %></td>
+                              <td><%= reports[i].injType %></td>
+                              <td><%= reports[i].hospital %></td>
                               <td><%= reports[i].createdAt.toDateString() %></td>
+                              <td><div class="btn-group mb-3" role="group" aria-label="Basic example">
+                                <form action="/approve/<%= reports[i].id %>" method="POST">
+                                  <%- reports[i].approved === true ? `<button type="submit" class="btn btn-success" disabled>Approve</button>` : `<button type="submit" class="btn btn-success">Approve</button>` %>
+                              </form>
+                              <form action="/unapprove/<%= reports[i].id %>" method="POST">
+                                <%- reports[i].approved === false ? `<button type="submit" class="btn btn-danger" disabled>UnApprove</button>` : `<button type="submit" class="btn btn-danger">UnApprove</button>` %>
+                            </form>
+                                <button id="swal-2" class="btn btn-success">Share</button>
+                              </div></td>
                             </tr>
                             <% } %>
                         </tbody>
@@ -63,6 +77,9 @@
   <script src="/assets/bundles/datatables/export-tables/vfs_fonts.js"></script>
   <script src="/assets/bundles/datatables/export-tables/buttons.print.min.js"></script>
   <script src="/assets/js/page/datatables.js"></script>
+  <script src="/assets/bundles/sweetalert/sweetalert.min.js"></script>
+  <!-- Page Specific JS File -->
+  <script src="/assets/js/page/sweetalert.js"></script>
   <!-- Template JS File -->
   <script src="/assets/js/scripts.js"></script>
   <!-- Custom JS File -->

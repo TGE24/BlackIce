@@ -22,10 +22,12 @@
                           <thead>
                             <tr>
                               <th>SN</th>
-                              <th>Accident Cause</th>
-                              <th>District</th>
-                              <th>Details</th>
-                              <th>Image</th>
+                              <th>Person Name</th>
+                              <th>Person Gender</th>
+                              <th>Details of Incident</th>
+                              <th>District</th>                              
+                              <th>Injury Type</th>
+                              <th>Required Hospital</th>
                               <th>Date</th>
                             </tr>
                           </thead>
@@ -33,10 +35,12 @@
                             <% for(let i=0; i<reports.length; i++) {%>
                             <tr>
                               <td><%= i + 1 %></td>
-                              <td><%= reports[i].accidentCause%></td>
-                              <td><%= reports[i].district%></td>
-                              <td><%= reports[i].content.slice(3, -4) %></td>
-                              <td><img alt="image" src="<%= reports[i].thumbnail%>" width="35"></td>
+                              <td><%= reports[i].injName%></td>
+                              <td><%= reports[i].injGender%></td>
+                              <td><%= reports[i].injDetails %></td>
+                              <td><%= reports[i].district %></td>
+                              <td><%= reports[i].injType %></td>
+                              <td><%= reports[i].hospital %></td>
                               <td><%= reports[i].createdAt.toDateString() %></td>
                             </tr>
                             <% } %>
