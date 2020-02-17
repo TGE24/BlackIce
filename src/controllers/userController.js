@@ -119,7 +119,8 @@ exports.getUserReports = async (req, res, next) => {
 
 exports.getReports = async (req, res, next) => {
   try {
-    const reports = await Report.find({});
+    const approved = { approved: true };
+    const reports = await Report.find(approved);
     if (!reports) return next(new Error("No report submitted"));
     res.locals.reports = reports;
     res.status(200);
@@ -161,6 +162,34 @@ exports.getDistrictUsers = async (req, res, next) => {
 exports.logout = async (req, res, next) => {
   try {
     delete res.locals.loggedInUser;
+    res.status(200);
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.approveReport = async (req, res, next) => {
+  try {
+    const id = { _id: req.params.id };
+    const update = {
+      approved: true
+    };
+    await Report.findOneAndUpdate(id, update);
+    res.status(200);
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.unApproveReport = async (req, res, next) => {
+  try {
+    const id = { _id: req.params.id };
+    const update = {
+      approved: false
+    };
+    await Report.findOneAndUpdate(id, update);
     res.status(200);
     next();
   } catch (error) {

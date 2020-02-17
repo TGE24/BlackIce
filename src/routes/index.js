@@ -3,22 +3,22 @@ const router = express.Router();
 import userController from "../controllers/userController";
 import Report from "../models/reports";
 import State from "../helpers/states_and_lgas";
-import multer from "multer";
-import cloudinary from "cloudinary";
-import cloudinaryStorage from "multer-storage-cloudinary";
+// import multer from "multer";
+// import cloudinary from "cloudinary";
+// import cloudinaryStorage from "multer-storage-cloudinary";
 
-cloudinary.config({
-  cloud_name: "tech-18",
-  api_key: "856292739299675",
-  api_secret: "8Qcrg5W7BuUizWQ5VYUGmra489g"
-});
-const storage = cloudinaryStorage({
-  cloudinary: cloudinary,
-  folder: "admanagement",
-  allowedFormats: ["jpg", "png"],
-  transformation: [{ width: 350, height: 282, crop: "limit" }]
-});
-const parser = multer({ storage: storage });
+// cloudinary.config({
+//   cloud_name: "tech-18",
+//   api_key: "856292739299675",
+//   api_secret: "8Qcrg5W7BuUizWQ5VYUGmra489g"
+// });
+// const storage = cloudinaryStorage({
+//   cloudinary: cloudinary,
+//   folder: "admanagement",
+//   allowedFormats: ["jpg", "png"],
+//   transformation: [{ width: 350, height: 282, crop: "limit" }]
+// });
+// const parser = multer({ storage: storage });
 
 /* GET home page. */
 router.get("/", function(req, res, next) {
@@ -132,13 +132,35 @@ router.post("/signup", userController.signup, (req, res) => {
   res.redirect("/");
 });
 
-router.post("/postReport", parser.single("thumbnail"), (req, res) => {
-  const { accidentCause, district, content } = req.body;
+router.post("/postReport", (req, res) => {
+  const {
+    injName,
+    injAddress,
+    injPhone,
+    injDob,
+    injGender,
+    injDetails,
+    injProffession,
+    injType,
+    hospital,
+    hosName,
+    hosAddress,
+    hosPhone
+  } = req.body;
   const newReport = new Report({
-    accidentCause,
-    district,
-    thumbnail: req.file.url,
-    content,
+    injName,
+    injAddress,
+    injPhone,
+    injDob,
+    injGender,
+    injDetails,
+    injProffession,
+    injType,
+    hospital,
+    hosName,
+    hosAddress,
+    hosPhone,
+    district: res.locals.loggedInUser.district,
     userId: req.session.user._id
   });
   newReport.save(err => {
@@ -173,5 +195,21 @@ router.post("/", userController.login, (req, res) => {
 router.get("/logout", userController.logout, (req, res) => {
   res.redirect("/");
 });
+
+router.post(
+  "/approve/:id",
+  userController.approveReport,
+  (req, res) => {
+    res.redirect("/supervisor/reports");
+  }
+);
+
+router.post(
+  "/unapprove/:id",
+  userController.unApproveReport,
+  (req, res) => {
+    res.redirect("/supervisor/reports");
+  }
+);
 
 module.exports = router;

@@ -16,47 +16,108 @@
                   <div class="card-header">
                     <h4>Report Accident Case</h4>
                   </div>
-                  <form method="POST" action="/postReport" enctype="multipart/form-data">
-                  <div class="form-group row mb-4">
-                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Cause of Accident</label>
-                    <div class="col-sm-12 col-md-7">
-                      <input type="text" name="accidentCause" class="form-control inputtags">
+
+                <div class="row clearfix">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <form id="wizard_with_validation" method="POST" action="/postReport">
+                          <h3>Basic Information</h3>
+                          <fieldset>
+                            <div class="form-group form-float">
+                              <div class="form-line">
+                                <label class="form-label">Injured Person Name</label>
+                                <input type="text" class="form-control" name="injName" required>
+                              </div>
+                            </div>
+                            <div class="form-group form-float">
+                              <div class="form-line">
+                                <label class="form-label">Address</label>
+                                <input type="text" class="form-control" name="injAddress">
+                              </div>
+                            </div>
+                            <div class="form-group form-float">
+                              <div class="form-line">
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" name="injPhone">
+                              </div>
+                            </div>      
+
+                            <div class="form-group form-float">
+                              <div class="form-line">
+                                <label class="form-label">Date of Birth</label>
+                                <input type="date" class="form-control" name="injDob">
+                              </div>
+                            </div>
+
+                            <div class="section-title">Gender</div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input type="radio" id="customRadioInline1" value="male" name="injGender" class="custom-control-input" required>
+                              <label class="custom-control-label" for="customRadioInline1">Male</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input type="radio" id="customRadioInline2" value="female" name="injGender" class="custom-control-input" required>
+                              <label class="custom-control-label" for="customRadioInline2">Female</label>
+                            </div>
+
+                          </fieldset>
+                          <h3>Injury Information</h3>
+                          <fieldset>
+                            <div class="form-group">
+                              <label>Incident Details</label>
+                              <textarea class="form-control" name="injDetails"></textarea>
+                            </div>
+                            <div class="form-group form-float">
+                              <div class="form-line">
+                                <label class="form-label">Who was injured person?</label>
+                                <input type="text" name="injProffession" class="form-control">
+                              </div>
+                            </div>
+                            <div class="form-group form-float">
+                              <div class="form-line">
+                                <label class="form-label">Injury Type</label>
+                                <input type="text" name="injType" class="form-control" required>
+                              </div>
+                            </div>                            
+                          </fieldset>
+                        </fieldset>
+                        <h3>Hospital Information</h3>
+                        <fieldset>
+                          
+                          <div class="section-title">Does Injury require Physician?</div>
+                          <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="physicain" value="true" name="hospital" class="custom-control-input">
+                            <label class="custom-control-label" for="physicain">Yes</label>
+                          </div>
+                          <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="physician2" value="false" name="hospital" class="custom-control-input">
+                            <label class="custom-control-label" for="physician2">No</label>
+                          </div>
+
+                          <div class="form-group form-float">
+                            <div class="form-line">
+                              <label class="form-label">Hospital Name</label>
+                              <input type="text" name="hosName" class="form-control" >
+                            </div>
+                          </div>
+                          <div class="form-group form-float">
+                            <div class="form-line">
+                              <label class="form-label">Hospital Address</label>
+                              <input type="text" name="hosAddress" class="form-control" >
+                            </div>
+                          </div> 
+                          <div class="form-group form-float">
+                            <div class="form-line">
+                              <label class="form-label">Hospital Phone</label>
+                              <input type="tel" name="hosPhone" class="form-control" >
+                            </div>
+                          </div>                            
+                        </fieldset>
+                        </form>
+                      </div>
                     </div>
                   </div>
-                  <div class="card-body">
-                    <div class="form-group row mb-4">
-                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Select District</label>
-                      <div class="col-sm-12 col-md-7">
-                        <select name="district" class="form-control selectric">
-                            <% for(let i=0; i<districts.length; i++) {%>
-                          <option value="<%= districts[i].name%>"><%= districts[i].name%></option>
-                          <% } %>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="form-group row mb-4">
-                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Thumbnail</label>
-                      <div class="col-sm-12 col-md-7">
-                        <div id="image-preview" class="image-preview">
-                          <label for="image-upload" id="image-label">Choose File</label>
-                          <input type="file" name="thumbnail" id="image-upload" />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group row mb-4">
-                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Content</label>
-                      <div class="col-sm-12 col-md-7">
-                        <textarea name="content" class="summernote-simple"></textarea>
-                      </div>
-                    </div>
-                    <div class="form-group row mb-4">
-                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
-                      <div class="col-sm-12 col-md-7">
-                        <button class="btn btn-primary" type="submit">Create Post</button>
-                      </div>
-                    </div>
-                  </div>
-                </form>
+                </div>
                 </div>
               </div>
             </div>
@@ -77,6 +138,12 @@
   <script src="/assets/js/scripts.js"></script>
   <!-- Custom JS File -->
   <script src="/assets/js/custom.js"></script>
+  <script src="/assets/js/app.min.js"></script>
+  <script src="/assets/bundles/jquery-validation/dist/jquery.validate.min.js"></script>
+  <!-- JS Libraies -->
+  <script src="/assets/bundles/jquery-steps/jquery.steps.min.js"></script>
+  <!-- Page Specific JS File -->
+  <script src="/assets/js/page/form-wizard.js"></script>
 </body>
 
 </html>
