@@ -34,7 +34,7 @@
                             <td><%= users[i].email%></td>
                             <td><%= users[i].district%></td>
                             <td>
-                              <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
+                              <a href="/deleteUsers/<%= users[i]._id %>"><button class="btn btn-danger">Delete</button></a>
                             </td>
                           </tr>
                           <% } %>

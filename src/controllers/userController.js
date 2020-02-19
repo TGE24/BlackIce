@@ -31,6 +31,31 @@ exports.signup = async (req, res, next) => {
   }
 };
 
+exports.register = async (req, res, next) => {
+  try {
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      district
+    } = req.body;
+    const hashedPassword = await hashPassword(password);
+    const newUser = new User({
+      name: firstName + " " + lastName,
+      email,
+      district: district,
+      password: hashedPassword,
+      role: "user"
+    });
+    await newUser.save();
+    res.status(200);
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.addSupervisor = async (req, res, next) => {
   try {
     const {
@@ -69,6 +94,19 @@ exports.getSupervisors = async (req, res, next) => {
   }
 };
 
+exports.getUsers = async (req, res, next) => {
+  try {
+    const role = { role: "user" };
+    const users = await User.find(role);
+    if (!users) return next(new Error("No supervisor found"));
+    res.locals.users = users;
+    res.status(200);
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
@@ -95,13 +133,6 @@ exports.login = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-};
-
-exports.getUsers = async (req, res, next) => {
-  const users = await User.find({});
-  res.status(200).json({
-    data: users
-  });
 };
 
 exports.getUserReports = async (req, res, next) => {
@@ -152,6 +183,17 @@ exports.getDistrictUsers = async (req, res, next) => {
     const users = await User.find(userId);
     if (!users) return next(new Error("No report submitted"));
     res.locals.districtUsers = users;
+    res.status(200);
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.deleteUser = async (req, res, next) => {
+  try {
+    const userId = req.params.userId;
+    await User.findByIdAndDelete(userId);
     res.status(200);
     next();
   } catch (error) {

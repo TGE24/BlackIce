@@ -1,3 +1,11 @@
+@media screen and (max-width: 800px) {
+  .wizard ul,
+  .tabcontrol ul {
+    display: flex;
+    flex-direction: column;
+  }
 
-/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY3VzdG9tLmNzcyIsInNvdXJjZXMiOlsiY3VzdG9tLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiJ9 */
-
+  .wizard > .steps > ul > li {
+    width: auto !important;
+  }
+}

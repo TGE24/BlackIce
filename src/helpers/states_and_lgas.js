@@ -1,25 +1,27 @@
 exports.state = {
   state: {
-    name: "Cross River State",
+    name: "Lagos State",
     id: 9,
     locals: [
-      { name: "Akamkpa", id: 1 },
-      { name: "Akpabuyo", id: 2 },
-      { name: "Bakassi", id: 3 },
-      { name: "Bekwarra", id: 4 },
-      { name: "Biase", id: 5 },
-      { name: "Boki", id: 6 },
-      { name: "Calabar Municipal", id: 7 },
-      { name: "Calabar South", id: 8 },
-      { name: "Etung", id: 9 },
-      { name: "Ikom", id: 10 },
-      { name: "Obanliku", id: 11 },
-      { name: "Obubra", id: 12 },
-      { name: "Obudu", id: 13 },
-      { name: "Odukpani", id: 14 },
-      { name: "Ogoja", id: 15 },
-      { name: "Yakuur", id: 16 },
-      { name: "Yala", id: 17 }
+      { name: "Ajeromi-Ifelodun", id: 1 },
+      { name: "Alimosho", id: 2 },
+      { name: "Amuwo-Odofin", id: 3 },
+      { name: "Apapa", id: 4 },
+      { name: "Badagry", id: 5 },
+      { name: "Epe", id: 6 },
+      { name: "Eti Osa", id: 7 },
+      { name: "Ibeju-Lekki", id: 8 },
+      { name: "Ifako-Ijaiye", id: 9 },
+      { name: "Ikeja", id: 10 },
+      { name: "Ikorodu", id: 11 },
+      { name: "Kosofe", id: 12 },
+      { name: "Lagos Island", id: 13 },
+      { name: "Lagos Mainland", id: 14 },
+      { name: "Mushin", id: 15 },
+      { name: "Ojo", id: 16 },
+      { name: "Oshodi-Isolo", id: 17 },
+      { name: "Shomolu", id: 18 },
+      { name: "Surulere", id: 19 }
     ]
   }
 };
