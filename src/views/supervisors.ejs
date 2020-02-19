@@ -34,7 +34,7 @@
                             <td><%= supervisors[i].email%></td>
                             <td><%= supervisors[i].district%></td>
                             <td>
-                              <a href="#" class="btn btn-icon btn-danger"><i class="fas fa-times"></i></a>
+                              <a href="/deleteUser/<%= supervisors[i]._id %>"> <button class="btn btn-danger">Delete</button></a>
                             </td>
                           </tr>
                           <% } %>

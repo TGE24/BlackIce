@@ -1,0 +1,152 @@
+<% include partials/header %>
+
+<body>
+  <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+        <% include partials/navbar %>
+
+        <% include partials/sidebar %>
+      <!-- Main Content -->
+      <div class="main-content">
+        <section class="section">
+          <div class="section-body">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                  <div class="card card-statistic-2">
+                    <div class="card-icon shadow-primary bg-cyan">
+                      <i class="fas fa-hiking"></i>
+                    </div>
+                    <div class="card-wrap">
+                      <div class="card-header">
+                        <h4 class="pull-right">Districts</h4>
+                      </div>
+                      <div class="card-body pull-right">
+                        19
+                      </div>
+                    </div>
+                    <div class="card-chart">
+                      <canvas id="chart-1" height="80"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                  <div class="card card-statistic-2">
+                    <div class="card-icon shadow-primary bg-purple">
+                      <i class="fas fa-drafting-compass"></i>
+                    </div>
+                    <div class="card-wrap">
+                      <div class="card-header">
+                        <h4 class="pull-right">District Supervisors</h4>
+                      </div>
+                      <div class="card-body pull-right">
+                        <%= supervisors.length %>
+                      </div>
+                    </div>
+                    <div class="card-chart">
+                      <canvas id="chart-2" height="80"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                  <div class="card card-statistic-2">
+                    <div class="card-icon shadow-primary bg-green">
+                      <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="card-wrap">
+                      <div class="card-header">
+                        <h4 class="pull-right">Users</h4>
+                      </div>
+                      <div class="card-body pull-right">
+                        <%= users.length %>
+                      </div>
+                    </div>
+                    <div class="card-chart">
+                      <canvas id="chart-3" height="80"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            <div class="row">
+              <div class="col-12 col-sm-12 col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Accident Report Summary</h4>
+                    <div class="card-header-action">
+                      <a href="#summary-chart" data-tab="summary-tab" class="btn active">Chart</a>
+                      <a href="#summary-text" data-tab="summary-tab" class="btn">Text</a>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="summary">
+                      <div class="summary-info" data-tab-group="summary-tab" id="summary-text">
+                        <h4>15</h4>
+                        <div class="text-muted">Total Reports Today</div>
+                        <div class="d-block mt-2">
+                          <a href="/admin/reports">View All</a>
+                        </div>
+                      </div>
+                      <div class="summary-chart active" data-tab-group="summary-tab" id="summary-chart">
+                        <canvas id="myChart" height="180"></canvas>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Accident Statistics</h4>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="myChart2" height="180"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+           
+            <div class="row">
+              <div class="col-12 col-sm-12 col-lg-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Users</h4>
+                  </div>
+                  <div class="card-body">
+                    <div id="visitorMap4" data-height="190"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-lg-6 mt-lg-0 mt-sm-4">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>District Charts</h4>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="myChart3" height="170"></canvas>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  <!-- General JS Scripts -->
+  <script src="/assets/js/app.min.js"></script>
+  <!-- JS Libraies -->
+  <script src="/assets/bundles/chartjs/chart.min.js"></script>
+  <script src="/assets/bundles/jquery.sparkline.min.js"></script>
+  <script src="/assets/bundles/jqvmap/dist/jquery.vmap.min.js"></script>
+  <script src="/assets/bundles/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+  <script src="/assets/bundles/jqvmap/dist/maps/jquery.vmap.indonesia.js"></script>
+  <!-- Page Specific JS File -->
+  <script src="/assets/js/page/widget-chart.js"></script>
+  <!-- Template JS File -->
+  <script src="/assets/js/scripts.js"></script>
+  <!-- Custom JS File -->
+  <script src="/assets/js/custom.js"></script>
+</body>
+
+</html>

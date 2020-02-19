@@ -123,12 +123,30 @@ router.get(
   }
 );
 
+router.get(
+  "/admin",
+  userController.allowIfLoggedin,
+  userController.getSupervisors,
+  userController.getUsers,
+  (req, res, next) => {
+    res.render("adminStats", {
+      user: res.locals.loggedInUser,
+      users: res.locals.users,
+      supervisors: res.locals.supervisors
+    });
+  }
+);
+
 // Sign Up Page
 router.get("/signup", function(req, res, next) {
-  res.render("signup");
+  res.render("signup", { districts: State.state.state.locals });
 });
 
 router.post("/signup", userController.signup, (req, res) => {
+  res.redirect("/supervisor/users");
+});
+
+router.post("/registerUser", userController.register, (req, res) => {
   res.redirect("/");
 });
 
@@ -188,13 +206,29 @@ router.post("/", userController.login, (req, res) => {
   } else if (req.session.user.role === "district-supervisor") {
     res.redirect("/supervisor/add-user");
   } else if (req.session.user.role === "admin") {
-    res.redirect("/admin/add-supervisor");
+    res.redirect("/admin");
   }
 });
 
 router.get("/logout", userController.logout, (req, res) => {
   res.redirect("/");
 });
+
+router.get(
+  "/deleteUser/:userId",
+  userController.deleteUser,
+  (req, res) => {
+    res.redirect("/admin/supervisors");
+  }
+);
+
+router.get(
+  "/deleteUsers/:userId",
+  userController.deleteUser,
+  (req, res) => {
+    res.redirect("/supervisor/users");
+  }
+);
 
 router.post(
   "/approve/:id",

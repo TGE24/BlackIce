@@ -9,7 +9,11 @@ $("#swal-2").click(function() {
 });
 
 $("#swal-3").click(function() {
-  swal("Good Job", "You clicked the button!", "warning");
+  swal(
+    "Success",
+    "Report Successfully Sent To District police Station!",
+    "success"
+  );
 });
 
 $("#swal-4").click(function() {
